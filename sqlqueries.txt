@@ -1,0 +1,67 @@
+#--------------------------------------------
+create database practisedb;
+use practisedb;
+##create table with primary key
+commit;
+create table dgtl_wllt(
+	dgtl_wllt_id int auto_increment not null,
+    dgtl_wllt_prvd_id long not null,
+    dgtl_wllt_sec_id varchar(48),
+    primary key(dgtl_wllt_id)
+);
+drop table dgtl_wllt;
+##create table with composite primary key & foriegn key
+create table dgtl_dvc_wllt_acct(
+	dgtl_dvc_wllt_acct_id int auto_increment not null,
+    dgtl_wllt_prvd_id int not null,
+    dgtl_wllt_id int,
+    curr_prvn_sts_cd varchar(32),
+    uuid varchar(36),
+    primary key(dgtl_dvc_wllt_acct_id,dgtl_wllt_prvd_id),
+    foreign key(dgtl_wllt_id) references dgtl_wllt(dgtl_wllt_id)
+);
+desc dgtl_dvc_wllt_acct;
+
+insert into dgtl_wllt(dgtl_wllt_prvd_id, dgtl_wllt_sec_id) values('10030273','123456ABC');
+insert into dgtl_wllt(dgtl_wllt_prvd_id, dgtl_wllt_sec_id) values('10030273','123456ABE');
+insert into dgtl_wllt(dgtl_wllt_prvd_id, dgtl_wllt_sec_id) values('10030273','123456ABF');
+insert into dgtl_wllt(dgtl_wllt_prvd_id, dgtl_wllt_sec_id) values('10043095','123456ABD');
+
+select * from dgtl_wllt;
+select * from dgtl_wllt where dgtl_wllt_prvd_id='10030273' ;
+#####like
+select * from dgtl_wllt where dgtl_wllt_prvd_id='10030273' and dgtl_wllt_sec_id like '123456%' ;
+select * from dgtl_wllt where dgtl_wllt_prvd_id='10030273' and dgtl_wllt_sec_id like '%456%' ;
+select * from dgtl_wllt where dgtl_wllt_prvd_id='10030273' and dgtl_wllt_sec_id like '%ABE' ;
+
+#####distict
+select distinct dgtl_wllt_prvd_id from dgtl_wllt ;
+select distinct dgtl_wllt_sec_id from dgtl_wllt ;
+
+######top/limit/fetch
+select * from dgtl_wllt where dgtl_wllt_prvd_id='10030273' limit 1 ;
+
+######order by
+select * from dgtl_wllt where dgtl_wllt_prvd_id='10030273' order by dgtl_wllt_sec_id;
+select * from dgtl_wllt where dgtl_wllt_prvd_id='10030273' order by dgtl_wllt_sec_id desc;
+
+update dgtl_wllt set dgtl_wllt_sec_id='123456XXX' where dgtl_wllt_prvd_id='10030273' AND dgtl_wllt_sec_id='123456ABC' and dgtl_wllt_id <> 0;
+
+delete from dgtl_wllt where dgtl_wllt_prvd_id='10030273' AND dgtl_wllt_sec_id='123456ABF' and dgtl_wllt_id <> 0;
+commit;
+
+##count, group by, having
+select dgtl_wllt_prvd_id, count(*) from dgtl_wllt group by dgtl_wllt_prvd_id;
+select dgtl_wllt_prvd_id, count(*) from dgtl_wllt group by dgtl_wllt_prvd_id having count(*)>1;
+
+#index
+create index pkindex on dgtl_wllt(dgtl_wllt_id);
+
+#view
+create view wallets_sec_id_gt2 as
+select dgtl_wllt_prvd_id, count(*) from dgtl_wllt group by dgtl_wllt_prvd_id having count(*)>1;
+
+select * from wallets_sec_id_gt2;
+
+# delete , truncate , drop
+# alter
