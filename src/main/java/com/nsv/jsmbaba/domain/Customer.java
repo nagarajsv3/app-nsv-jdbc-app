@@ -1,12 +1,13 @@
 package com.nsv.jsmbaba.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
+@Setter
 @Builder
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class Customer {
     private int customerId;
     private String name;
@@ -15,4 +16,7 @@ public class Customer {
     private String state;
     private String country;
     private String zipCode;
+    private PhoneInformation phoneInformation;
+
+
 }
