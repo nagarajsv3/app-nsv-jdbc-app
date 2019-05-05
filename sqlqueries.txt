@@ -97,3 +97,54 @@ select t.name as tname, r.name as rname from reviewer r
 inner join reviewer_task rt on r.reviewer_id = rt.reviewer_id
 inner join task t on rt.task_id=t.task_id
 where t.task_id= 2;
+
+
+
+
+#OneToOneAssociation
+select c.name, c.street, c.zipcode, ph.cell, ph.work, ph.home from customer c
+inner join phoneinfo ph
+on c.customerId = ph.customerId
+where c.customerId = '1';
+#OneToManyAssociation
+select * from ordersplaced;
+select * from customer c
+inner join ordersplaced o
+on c.customerId = o.customerId
+where c.customerId = 1;
+
+#ManyToManyAssociation
+select * from reviewer;
+select * from task;
+select * from reviewer_task;
+
+
+####TransactionManagement-SavePoint#####
+CREATE TABLE `Employee` (
+  `employeeId` int(11) unsigned NOT NULL,
+  `name` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`employeeId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `Address` (
+  `employeeId` int(11) unsigned NOT NULL,
+  `address` varchar(20) DEFAULT NULL,
+  `city` varchar(5) DEFAULT NULL,
+  `country` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`employeeId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `Logs` (
+  `id` int(3) unsigned NOT NULL AUTO_INCREMENT,
+  `message` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+select * from employee;
+select * from address;
+select * from logs;
+truncate logs;
+drop table logs;
+alter table address change officerId employeeId varchar(48);

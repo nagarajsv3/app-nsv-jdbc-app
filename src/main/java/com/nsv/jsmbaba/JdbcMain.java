@@ -6,6 +6,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.nsv.jsmbaba.utility.JdbcUtility.getMeADatabaseConnection;
+
 public class JdbcMain {
     public static void main(String[] args) {
         selectCustomers();
@@ -192,18 +194,7 @@ public class JdbcMain {
 
     }
 
-    public static Connection getMeADatabaseConnection(){
-        String jdbcurl = "jdbc:mysql://127.0.0.1:3306/javatraining";
-        String username = "root";
-        String password = "root";
-        Connection connection = null;
-        try {
-            connection = DriverManager.getConnection(jdbcurl, username, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return connection;
-    }
+
 
 
 }
