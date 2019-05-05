@@ -45,6 +45,15 @@ public class JdbcMain {
         System.out.println("-------getCustomerById------------------------------------");
         Customer customer = getCustomerById(89);
         System.out.println(customer);
+
+        System.out.println("-------getCustomerById------------------------------------");
+        Customer cust89 = getCustomerById(89);
+        System.out.println(cust89);
+        cust89.setName("JaiSanthoshiMaa");
+        updateCustomerName(cust89);
+        Customer cust89up = getCustomerById(89);
+        System.out.println(cust89up);
+
     }
 
     public static void selectCustomers(){
@@ -156,6 +165,24 @@ public class JdbcMain {
             int noOfRowsUpdated = preparedStatement.executeUpdate();
             System.out.println("No of rows updated"+noOfRowsUpdated);
 
+            preparedStatement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public static void updateCustomerName(Customer customer){
+        String sql = "update customer set name=? where customerId=?";
+        try {
+            Connection connection = getMeADatabaseConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1,customer.getName());
+            preparedStatement.setInt(2,customer.getCustomerId());
+            int noOfRowsUpdated = preparedStatement.executeUpdate();
+            System.out.println("No of rows updated"+noOfRowsUpdated);
             preparedStatement.close();
             connection.close();
         } catch (SQLException e) {

@@ -65,3 +65,35 @@ select * from wallets_sec_id_gt2;
 
 # delete , truncate , drop
 # alter
+
+use javatraining;
+select * from customer;
+
+call fetchCustomersfetchCustomers(89);
+
+#OneToOneAssociation
+select c.name, c.street, c.zipcode, ph.cell, ph.work, ph.home from customer c
+inner join phoneinfo ph
+on c.customerId = ph.customerId
+where c.customerId = '1';
+#OneToManyAssociation
+select * from ordersplaced;
+select * from customer c
+inner join ordersplaced o
+on c.customerId = o.customerId
+where c.customerId = 1;
+
+#ManyToManyAssociation
+select * from reviewer;
+select * from task;
+select * from reviewer_task;
+
+select r.name AS rname, t.name as tname from reviewer r
+inner join reviewer_task rt on r.reviewer_id = rt.reviewer_id
+inner join task t on rt.task_id=t.task_id
+where r.reviewer_id = 1;
+
+select t.name as tname, r.name as rname from reviewer r
+inner join reviewer_task rt on r.reviewer_id = rt.reviewer_id
+inner join task t on rt.task_id=t.task_id
+where t.task_id= 2;

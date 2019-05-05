@@ -2,6 +2,9 @@ package com.nsv.jsmbaba.domain;
 
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @Builder
@@ -17,6 +20,6 @@ public class Customer {
     private String country;
     private String zipCode;
     private PhoneInformation phoneInformation;
-
+    private List<Order> orders = new ArrayList<>();
 
 }
