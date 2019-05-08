@@ -12,8 +12,11 @@ public class JdbcUtility {
         String password = "root";
         Connection connection = null;
         try {
+            Class.forName(com.mysql.jdbc.Driver.class.getName());
             connection = DriverManager.getConnection(jdbcurl, username, password);
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return connection;
