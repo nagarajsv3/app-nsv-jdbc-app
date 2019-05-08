@@ -12,6 +12,7 @@ public class JdbcUtility {
         String password = "root";
         Connection connection = null;
         try {
+            //Loads the driver dynamically at run time by looking ar jar file
             Class.forName(com.mysql.jdbc.Driver.class.getName());
             connection = DriverManager.getConnection(jdbcurl, username, password);
         } catch (SQLException e) {
